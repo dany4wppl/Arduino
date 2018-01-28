@@ -256,8 +256,8 @@ void UzupelnienieTowaru(){
 
 }
 
+// function for run particular stepper/servo (in the future)
 void WydajTowar (String Towar){
-
     myStepper.step(2048);
     digitalWrite(8, LOW);
     digitalWrite(9, LOW);
@@ -265,6 +265,7 @@ void WydajTowar (String Towar){
     digitalWrite(11, LOW);
 }
 
+// Out od order
 void KoniecTowaru(String Towar){
     lcd.setCursor(0, 0);
     lcd.print("Przykro nam...");
@@ -273,6 +274,7 @@ void KoniecTowaru(String Towar){
     delay(3000);
 }
 
+// chek if any key was pressed on keyboard
 String KyeboardCheck(boolean SerialDebug)
 {
   String key="";
