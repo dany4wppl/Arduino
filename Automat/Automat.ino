@@ -1,8 +1,8 @@
 // -- keyboard definition --
-int kb1 = A0;
-int kb2 = A1;
-int kb3 = A2;
-int kb4 = A3;
+#define kb1 A0
+#define kb2 A1
+#define kb3 A2
+#define kb4 A3
 int v1, v2, v3, v4;
 // -- keyboard definition
 
@@ -60,6 +60,9 @@ Stepper myStepper(stepsPerRevolution, 8, 10, 9, 11);
 #define buzz A5
 //-- distance sensor/buzzer --
 
+// global variables definition
+boolean SerialDebug = true;
+
 void setup() {
   //start serial communication
   if (SerialDebug==true) {Serial.begin(9600);}
@@ -94,7 +97,6 @@ void setup() {
 }
 
 // global variables definition
-boolean SerialDebug = true;
 int IleKnoppersowZaladowano = 0;
 boolean wUzyciu=false;
 int waitTimeForSleep = 20; //iterations
@@ -132,11 +134,11 @@ void loop() {
       if (SerialDebug==true) {Serial.println("currentWaitTimeForSleep?: " + String(currentWaitTimeForSleep));};
         
       if (currentWaitTimeForSleep > waitTimeForSleep){
-          if (SerialDebug==true) {Serial.println("GoSleep()";};
+          if (SerialDebug==true) {Serial.println("GoSleep()");};
           GoSleep();
           return;
       }
-    
+     
     delay(250); 
   }
 
@@ -181,7 +183,7 @@ void GoSleep(){
 }
 
 // switch on display, ilumination, etc
-void WakeUp{
+void WakeUp(){
   lcd.clear();
   lcd.print("Zapraszamy!  ");
   lcd.setCursor(0, 1);
