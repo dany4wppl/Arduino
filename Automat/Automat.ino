@@ -60,10 +60,16 @@ Stepper myStepper(stepsPerRevolution, 8, 10, 9, 11);
 #define buzz A5
 //-- distance sensor/buzzer --
 
+#define power A4
+
 // global variables definition
 boolean SerialDebug = true;
 
 void setup() {
+
+  pinMode(power, OUTPUT);
+  WakeUp();
+
   //start serial communication
   if (SerialDebug==true) {Serial.begin(9600);}
 
@@ -94,6 +100,7 @@ void setup() {
 
   // prepare LCD in waiting state
   GoSleep();
+
 }
 
 // global variables definition
@@ -176,6 +183,7 @@ void loop() {
 
 // switch off display, ilumination, etc, to save energy
 void GoSleep(){
+  digitalWrite(power, LOW);
   lcd.clear();
   lcd.print("----------------");
   lcd.setCursor(0, 1);
@@ -184,6 +192,7 @@ void GoSleep(){
 
 // switch on display, ilumination, etc
 void WakeUp(){
+  digitalWrite(power, HIGH);
   lcd.clear();
   lcd.print("Zapraszamy!  ");
   lcd.setCursor(0, 1);
