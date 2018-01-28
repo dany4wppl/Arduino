@@ -116,12 +116,13 @@ void loop() {
   // waiting for wakeup signal from distance sensor
   while (wUzyciu==false){
     wUzyciu = CzyKtosKorzysta(distanceInfo, distanceStart, wUzyciu);
-    delay(500); 
+    delay(500);  
   }
   if (SerialDebug==true) {Serial.println("z loop - czy w uzyciu?: " + String(wUzyciu));};
     
   // start screen after wake up
-  WakeUp();
+  if (wUzyciu==true) {WakeUp();}
+  delay(500); 
   
   String key="";
 
@@ -183,20 +184,22 @@ void loop() {
 
 // switch off display, ilumination, etc, to save energy
 void GoSleep(){
-  digitalWrite(power, LOW);
+  digitalWrite(power, HIGH);
   lcd.clear();
   lcd.print("----------------");
   lcd.setCursor(0, 1);
   lcd.print("---Wylaczony!---");
+  Serial.print("Power z GoSleep()=" + String(digitalRead(power)));
 }
 
 // switch on display, ilumination, etc
 void WakeUp(){
-  digitalWrite(power, HIGH);
+  digitalWrite(power, LOW);
   lcd.clear();
   lcd.print("Zapraszamy!  ");
   lcd.setCursor(0, 1);
   lcd.print("Twoj wybor: ");
+  Serial.print("Power z WakeUp()=" + String(digitalRead(power)));
 }
 
 // base of distance sensor check if someone is close to automat
