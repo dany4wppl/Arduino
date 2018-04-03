@@ -68,7 +68,7 @@ boolean SerialDebug = true;
 void setup() {
 
   pinMode(power, OUTPUT);
-  WakeUp();
+  PowerUp();
 
   //start serial communication
   if (SerialDebug==true) {Serial.begin(9600);}
@@ -99,7 +99,7 @@ void setup() {
   if (SerialDebug==true) {lcd.print("Buzzer initialized");delay(1000);lcd.clear();}
 
   // prepare LCD in waiting state
-  GoSleep();
+  PowerDown();
 
 }
 
@@ -183,8 +183,13 @@ void loop() {
 }
 
 // switch off display, ilumination, etc, to save energy
-void GoSleep(){
+void PowerDown(){
   digitalWrite(power, HIGH);
+  Serial.print("Power z PowerDown()=" + String(digitalRead(power)));
+}
+
+// goodbye message
+void GoSleep(){
   lcd.clear();
   lcd.print("----------------");
   lcd.setCursor(0, 1);
@@ -193,8 +198,13 @@ void GoSleep(){
 }
 
 // switch on display, ilumination, etc
-void WakeUp(){
+void PowerUp(){
   digitalWrite(power, LOW);
+  Serial.print("Power z PowerUp()=" + String(digitalRead(power)));
+}
+
+// welcome message
+void WakeUp(){
   lcd.clear();
   lcd.print("Zapraszamy!  ");
   lcd.setCursor(0, 1);
